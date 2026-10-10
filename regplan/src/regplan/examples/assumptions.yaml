@@ -1,0 +1,58 @@
+# Shared assumptions for regplan example landscapes
+planning_start: "2026-10-01"
+horizon_quarters: 12
+discount_rate: 0.08
+daily_rate_gbp: 800.0
+quarterly_capacity_days: 150.0
+cumulative_budget_gbp: 10000000.0
+
+cost_overrun_dist:
+  type: triangular
+  low: 0.85
+  mode: 1.05
+  high: 1.40
+
+duration_slip_dist:
+  type: triangular
+  low: 0.0
+  mode: 0.15
+  high: 0.50
+
+benefit_realization_dist:
+  type: triangular
+  low: 0.70
+  mode: 0.90
+  high: 1.00
+
+overrun_correlation: 0.35
+ramp_up_quarters: 2
+simulation_seed: 42
+
+decision_table:
+  - rule_id: low-health-high-value
+    min_business_value: 0.7
+    max_business_value: 1.0
+    min_technical_health: 0.0
+    max_technical_health: 0.35
+    disposition: replatform
+
+  - rule_id: very-low-health
+    min_business_value: 0.0
+    max_business_value: 1.0
+    min_technical_health: 0.0
+    max_technical_health: 0.20
+    disposition: replace
+
+  - rule_id: low-value-low-health
+    min_business_value: 0.0
+    max_business_value: 0.4
+    min_technical_health: 0.0
+    max_technical_health: 0.4
+    disposition: retire
+
+  - rule_id: healthy-retain
+    min_business_value: 0.0
+    max_business_value: 1.0
+    min_technical_health: 0.70
+    max_technical_health: 1.0
+    disposition: retain

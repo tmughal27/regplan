@@ -1,0 +1,135 @@
+# Cloud-native application landscape example
+# 6 applications, 5 interfaces, 1 vendor, 2 scenarios
+id: cloud-native
+
+applications:
+  - id: APP-AUTH
+    name: Identity & Access Management
+    owner: platform
+    business_value: 0.90
+    technical_health: 0.85
+    data_residency: true
+    data_classification: PII
+    ai_enabled: false
+    vendor_id: null
+    attributes:
+      processes_personal_data: true
+      uses_ml: false
+      criticality: critical
+
+  - id: APP-PAYMENTS
+    name: Payment Service
+    owner: payments
+    business_value: 0.95
+    technical_health: 0.80
+    data_residency: true
+    data_classification: financial
+    ai_enabled: false
+    vendor_id: V-STRIPE
+    attributes:
+      processes_personal_data: true
+      uses_ml: false
+      criticality: critical
+
+  - id: APP-RECCOMEND
+    name: Recommendation Engine
+    owner: product
+    business_value: 0.70
+    technical_health: 0.75
+    data_residency: false
+    data_classification: internal
+    ai_enabled: true
+    vendor_id: null
+    attributes:
+      processes_personal_data: false
+      uses_ml: true
+      criticality: medium
+
+  - id: APP-NOTIF
+    name: Notification Service
+    owner: platform
+    business_value: 0.60
+    technical_health: 0.90
+    data_residency: false
+    data_classification: internal
+    ai_enabled: false
+    vendor_id: null
+    attributes:
+      processes_personal_data: false
+      uses_ml: false
+      criticality: low
+
+  - id: APP-ANALYTICS
+    name: Analytics Platform
+    owner: data
+    business_value: 0.75
+    technical_health: 0.70
+    data_residency: false
+    data_classification: internal
+    ai_enabled: true
+    vendor_id: null
+    attributes:
+      processes_personal_data: false
+      uses_ml: true
+      criticality: medium
+
+  - id: APP-GATEWAY
+    name: API Gateway
+    owner: platform
+    business_value: 0.85
+    technical_health: 0.88
+    data_residency: false
+    data_classification: internal
+    ai_enabled: false
+    vendor_id: null
+    attributes:
+      processes_personal_data: false
+      uses_ml: false
+      criticality: high
+
+interfaces:
+  - id: IF-GATEWAY-AUTH
+    source_id: APP-GATEWAY
+    target_id: APP-AUTH
+    protocol: gRPC
+    data_classification: PII
+
+  - id: IF-GATEWAY-PAYMENTS
+    source_id: APP-GATEWAY
+    target_id: APP-PAYMENTS
+    protocol: REST
+    data_classification: financial
+
+  - id: IF-AUTH-NOTIF
+    source_id: APP-AUTH
+    target_id: APP-NOTIF
+    protocol: gRPC
+    data_classification: internal
+
+  - id: IF-PAYMENTS-ANALYTICS
+    source_id: APP-PAYMENTS
+    target_id: APP-ANALYTICS
+    protocol: Kafka
+    data_classification: financial
+
+  - id: IF-RECCOMEND-ANALYTICS
+    source_id: APP-RECCOMEND
+    target_id: APP-ANALYTICS
+    protocol: Kafka
+    data_classification: internal
+
+vendors:
+  - id: V-STRIPE
+    name: Stripe Inc.
+    tier: 1
+
+scenarios:
+  - name: progressive
+    capacity_multiplier: 1.0
+    budget_multiplier: 1.0
+    deadline_extension_days: 0
+
+  - name: big_bang
+    capacity_multiplier: 1.5
+    budget_multiplier: 2.0
+    deadline_extension_days: 0

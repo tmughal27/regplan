@@ -1,0 +1,177 @@
+# Legacy-heavy application landscape example
+# 8 applications, 6 interfaces, 2 vendors, 2 scenarios
+id: legacy-heavy
+
+applications:
+  - id: APP-CRM
+    name: CRM System
+    owner: sales
+    business_value: 0.85
+    technical_health: 0.25
+    data_residency: true
+    data_classification: PII
+    ai_enabled: false
+    vendor_id: V-ORACLE
+    attributes:
+      processes_personal_data: true
+      uses_ml: false
+      criticality: high
+
+  - id: APP-ERP
+    name: ERP Core
+    owner: finance
+    business_value: 0.95
+    technical_health: 0.20
+    data_residency: true
+    data_classification: financial
+    ai_enabled: false
+    vendor_id: V-SAP
+    attributes:
+      processes_personal_data: true
+      uses_ml: false
+      criticality: critical
+
+  - id: APP-HR
+    name: HR Platform
+    owner: hr
+    business_value: 0.70
+    technical_health: 0.30
+    data_residency: true
+    data_classification: PII
+    ai_enabled: false
+    vendor_id: V-ORACLE
+    attributes:
+      processes_personal_data: true
+      uses_ml: false
+      criticality: high
+
+  - id: APP-BI
+    name: Business Intelligence
+    owner: analytics
+    business_value: 0.60
+    technical_health: 0.35
+    data_residency: false
+    data_classification: internal
+    ai_enabled: true
+    vendor_id: null
+    attributes:
+      processes_personal_data: false
+      uses_ml: true
+      criticality: medium
+
+  - id: APP-MDM
+    name: Master Data Management
+    owner: data-governance
+    business_value: 0.75
+    technical_health: 0.15
+    data_residency: true
+    data_classification: PII
+    ai_enabled: false
+    vendor_id: V-ORACLE
+    attributes:
+      processes_personal_data: true
+      uses_ml: false
+      criticality: high
+
+  - id: APP-PORTAL
+    name: Customer Portal
+    owner: digital
+    business_value: 0.80
+    technical_health: 0.40
+    data_residency: true
+    data_classification: PII
+    ai_enabled: false
+    vendor_id: null
+    attributes:
+      processes_personal_data: true
+      uses_ml: false
+      criticality: high
+
+  - id: APP-LEGACY-INT
+    name: Legacy Integration Bus
+    owner: it
+    business_value: 0.50
+    technical_health: 0.10
+    data_residency: false
+    data_classification: internal
+    ai_enabled: false
+    vendor_id: V-SAP
+    attributes:
+      processes_personal_data: false
+      uses_ml: false
+      criticality: medium
+
+  - id: APP-REPORTING
+    name: Regulatory Reporting
+    owner: compliance
+    business_value: 0.90
+    technical_health: 0.30
+    data_residency: true
+    data_classification: financial
+    ai_enabled: false
+    vendor_id: null
+    attributes:
+      processes_personal_data: true
+      uses_ml: false
+      criticality: critical
+
+interfaces:
+  - id: IF-CRM-ERP
+    source_id: APP-CRM
+    target_id: APP-ERP
+    protocol: SOAP
+    data_classification: PII
+
+  - id: IF-ERP-REPORTING
+    source_id: APP-ERP
+    target_id: APP-REPORTING
+    protocol: JDBC
+    data_classification: financial
+
+  - id: IF-HR-CRM
+    source_id: APP-HR
+    target_id: APP-CRM
+    protocol: REST
+    data_classification: PII
+
+  - id: IF-MDM-CRM
+    source_id: APP-MDM
+    target_id: APP-CRM
+    protocol: SOAP
+    data_classification: PII
+
+  - id: IF-CRM-PORTAL
+    source_id: APP-CRM
+    target_id: APP-PORTAL
+    protocol: REST
+    data_classification: PII
+
+  - id: IF-LEGACY-INT-ERP
+    source_id: APP-LEGACY-INT
+    target_id: APP-ERP
+    protocol: FTP
+    data_classification: internal
+
+vendors:
+  - id: V-ORACLE
+    name: Oracle Corporation
+    tier: 1
+
+  - id: V-SAP
+    name: SAP SE
+    tier: 1
+
+scenarios:
+  - name: progressive
+    capacity_multiplier: 1.0
+    budget_multiplier: 1.0
+    deadline_extension_days: 0
+
+  - name: minimum_compliance
+    capacity_multiplier: 0.6
+    budget_multiplier: 0.5
+    scope_filter:
+      - APP-CRM
+      - APP-ERP
+      - APP-REPORTING
+    deadline_extension_days: 0

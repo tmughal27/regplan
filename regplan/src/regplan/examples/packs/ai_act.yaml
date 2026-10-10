@@ -1,0 +1,42 @@
+regulation: AI Act
+version: "2024-08"
+rules:
+  - id: R-AIACT-01
+    regulation: AI Act
+    title: Register high-risk AI system in EU database
+    trigger:
+      attribute: uses_ml
+      operator: eq
+      value: true
+    deadline: "2027-08-02"
+    effort_person_days: 20.0
+    source_url: "https://artificialintelligenceact.eu/article/49/"
+    last_verified: "2024-08-01"
+
+  - id: R-AIACT-02
+    regulation: AI Act
+    title: Implement conformity assessment for high-risk AI
+    trigger:
+      all:
+        - attribute: uses_ml
+          operator: eq
+          value: true
+        - attribute: criticality
+          operator: in
+          value: ["high", "critical"]
+    deadline: "2027-08-02"
+    effort_person_days: 40.0
+    source_url: "https://artificialintelligenceact.eu/article/43/"
+    last_verified: "2024-08-01"
+
+  - id: R-AIACT-03
+    regulation: AI Act
+    title: Establish AI system risk management process
+    trigger:
+      attribute: uses_ml
+      operator: eq
+      value: true
+    deadline: "2028-02-02"
+    effort_person_days: 30.0
+    source_url: "https://artificialintelligenceact.eu/article/9/"
+    last_verified: "2024-08-01"

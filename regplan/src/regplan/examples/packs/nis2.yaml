@@ -1,0 +1,42 @@
+regulation: NIS2
+version: "2024-10"
+rules:
+  - id: R-NIS2-01
+    regulation: NIS2
+    title: Implement cybersecurity risk management measures
+    trigger:
+      attribute: criticality
+      operator: in
+      value: ["high", "critical"]
+    deadline: "2027-10-17"
+    effort_person_days: 35.0
+    source_url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022L2555#d1e2115-80-1"
+    last_verified: "2024-06-01"
+
+  - id: R-NIS2-02
+    regulation: NIS2
+    title: Establish incident notification procedures (24h reporting)
+    trigger:
+      attribute: criticality
+      operator: in
+      value: ["high", "critical"]
+    deadline: "2027-10-17"
+    effort_person_days: 20.0
+    source_url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022L2555#d1e2272-80-1"
+    last_verified: "2024-06-01"
+
+  - id: R-NIS2-03
+    regulation: NIS2
+    title: Supply chain security assessment for critical vendors
+    trigger:
+      all:
+        - attribute: criticality
+          operator: in
+          value: ["critical"]
+        - attribute: processes_personal_data
+          operator: eq
+          value: true
+    deadline: "2028-04-17"
+    effort_person_days: 25.0
+    source_url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022L2555#d1e2165-80-1"
+    last_verified: "2024-06-01"

@@ -1,0 +1,46 @@
+regulation: GDPR
+version: "2024-01"
+rules:
+  - id: R-GDPR-01
+    regulation: GDPR
+    title: Appoint a Data Protection Officer
+    trigger:
+      all:
+        - attribute: processes_personal_data
+          operator: eq
+          value: true
+        - attribute: data_residency
+          operator: eq
+          value: true
+    deadline: "2027-05-25"
+    effort_person_days: 15.0
+    source_url: "https://gdpr-info.eu/art-37-gdpr/"
+    last_verified: "2024-03-01"
+
+  - id: R-GDPR-02
+    regulation: GDPR
+    title: Implement Records of Processing Activities
+    trigger:
+      attribute: processes_personal_data
+      operator: eq
+      value: true
+    deadline: "2027-01-01"
+    effort_person_days: 10.0
+    source_url: "https://gdpr-info.eu/art-30-gdpr/"
+    last_verified: "2024-03-01"
+
+  - id: R-GDPR-03
+    regulation: GDPR
+    title: Data Protection Impact Assessment for high-risk processing
+    trigger:
+      all:
+        - attribute: processes_personal_data
+          operator: eq
+          value: true
+        - attribute: uses_ml
+          operator: eq
+          value: true
+    deadline: "2027-06-01"
+    effort_person_days: 25.0
+    source_url: "https://gdpr-info.eu/art-35-gdpr/"
+    last_verified: "2024-03-01"
