@@ -1,0 +1,296 @@
+{
+  "landscape_id": "fintech-hybrid",
+  "scenario_name": "base",
+  "schedule": {
+    "waves": [
+      {
+        "quarter": 0,
+        "work_item_ids": [
+          "APP-CORE-BNK:R-DORA-01",
+          "APP-CORE-BNK:R-DORA-02",
+          "APP-CORE-BNK:R-GDPR-02",
+          "APP-KYC:R-GDPR-02",
+          "APP-LEDGER:R-DORA-01"
+        ]
+      },
+      {
+        "quarter": 1,
+        "work_item_ids": [
+          "APP-CORE-BNK:R-GDPR-01",
+          "APP-CORE-BNK:R-NIS2-01",
+          "APP-CORE-BNK:R-NIS2-02",
+          "APP-FRAUD:R-AIACT-01",
+          "APP-KYC:R-AIACT-01",
+          "APP-KYC:R-GDPR-01",
+          "APP-KYC:R-GDPR-03"
+        ]
+      },
+      {
+        "quarter": 2,
+        "work_item_ids": [
+          "APP-CORE-BNK:R-DORA-03",
+          "APP-CORE-BNK:R-ISO27001-03",
+          "APP-KYC:R-AIACT-02",
+          "APP-KYC:R-NIS2-02",
+          "APP-LEDGER:R-DORA-03",
+          "APP-LEDGER:R-ISO27001-03"
+        ]
+      },
+      {
+        "quarter": 3,
+        "work_item_ids": [
+          "APP-CORE-BNK:R-ISO27001-01",
+          "APP-CORE-BNK:R-ISO27001-02",
+          "APP-CORE-BNK:R-NIS2-03",
+          "APP-KYC:R-NIS2-01",
+          "APP-LEDGER:R-ISO27001-01"
+        ]
+      },
+      {
+        "quarter": 4,
+        "work_item_ids": [
+          "APP-CORE-BNK:modernise",
+          "APP-FRAUD:R-AIACT-03",
+          "APP-KYC:R-AIACT-03",
+          "APP-LEDGER:modernise"
+        ]
+      },
+      {
+        "quarter": 5,
+        "work_item_ids": [
+          "APP-FRAUD:R-ISO42001-02",
+          "APP-KYC:R-ISO42001-02"
+        ]
+      },
+      {
+        "quarter": 6,
+        "work_item_ids": [
+          "APP-FRAUD:R-ISO42001-01",
+          "APP-KYC:R-ISO42001-01",
+          "APP-KYC:R-ISO42001-03"
+        ]
+      },
+      {
+        "quarter": 7,
+        "work_item_ids": [
+          "APP-LEGACY-RPT:modernise"
+        ]
+      }
+    ],
+    "work_item_starts": {
+      "APP-CORE-BNK:R-DORA-01": 0,
+      "APP-CORE-BNK:R-DORA-02": 0,
+      "APP-CORE-BNK:R-DORA-03": 2,
+      "APP-CORE-BNK:R-GDPR-01": 1,
+      "APP-CORE-BNK:R-GDPR-02": 0,
+      "APP-CORE-BNK:R-NIS2-01": 1,
+      "APP-CORE-BNK:R-NIS2-02": 1,
+      "APP-CORE-BNK:R-NIS2-03": 3,
+      "APP-CORE-BNK:R-ISO27001-01": 3,
+      "APP-CORE-BNK:R-ISO27001-02": 3,
+      "APP-CORE-BNK:R-ISO27001-03": 2,
+      "APP-LEDGER:R-DORA-01": 0,
+      "APP-LEDGER:R-DORA-03": 2,
+      "APP-LEDGER:R-ISO27001-01": 3,
+      "APP-LEDGER:R-ISO27001-03": 2,
+      "APP-KYC:R-GDPR-01": 1,
+      "APP-KYC:R-GDPR-02": 0,
+      "APP-KYC:R-GDPR-03": 1,
+      "APP-KYC:R-NIS2-01": 3,
+      "APP-KYC:R-NIS2-02": 2,
+      "APP-KYC:R-AIACT-01": 1,
+      "APP-KYC:R-AIACT-02": 2,
+      "APP-KYC:R-AIACT-03": 4,
+      "APP-KYC:R-ISO42001-01": 6,
+      "APP-KYC:R-ISO42001-02": 5,
+      "APP-KYC:R-ISO42001-03": 6,
+      "APP-FRAUD:R-AIACT-01": 1,
+      "APP-FRAUD:R-AIACT-03": 4,
+      "APP-FRAUD:R-ISO42001-01": 6,
+      "APP-FRAUD:R-ISO42001-02": 5,
+      "APP-CORE-BNK:modernise": 4,
+      "APP-LEDGER:modernise": 4,
+      "APP-LEGACY-RPT:modernise": 7
+    },
+    "objective_value": 27433361.0,
+    "solver_wall_time_s": 19.109000000025844,
+    "seed": 42
+  },
+  "infeasibility": null,
+  "financial": {
+    "cash_flows": [
+      {
+        "quarter": 0,
+        "capex": 0.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 112000.0,
+        "net": -112000.0
+      },
+      {
+        "quarter": 1,
+        "capex": 0.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 120000.0,
+        "net": -120000.0
+      },
+      {
+        "quarter": 2,
+        "capex": 0.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 120000.0,
+        "net": -120000.0
+      },
+      {
+        "quarter": 3,
+        "capex": 0.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 116000.0,
+        "net": -116000.0
+      },
+      {
+        "quarter": 4,
+        "capex": 64000.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 48000.0,
+        "net": -112000.0
+      },
+      {
+        "quarter": 5,
+        "capex": 64000.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 56000.0,
+        "net": -120000.0
+      },
+      {
+        "quarter": 6,
+        "capex": 64000.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 56000.0,
+        "net": -120000.0
+      },
+      {
+        "quarter": 7,
+        "capex": 36000.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 0.0,
+        "net": -36000.0
+      },
+      {
+        "quarter": 8,
+        "capex": 36000.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 0.0,
+        "net": -36000.0
+      },
+      {
+        "quarter": 9,
+        "capex": 36000.0,
+        "opex": 0.0,
+        "run_cost_savings": 9600.0,
+        "migration_cost": 0.0,
+        "net": -26400.0
+      },
+      {
+        "quarter": 10,
+        "capex": 36000.0,
+        "opex": 0.0,
+        "run_cost_savings": 9600.0,
+        "migration_cost": 0.0,
+        "net": -26400.0
+      },
+      {
+        "quarter": 11,
+        "capex": 0.0,
+        "opex": 0.0,
+        "run_cost_savings": 9600.0,
+        "migration_cost": 0.0,
+        "net": 9600.0
+      }
+    ],
+    "tco": 964000.0,
+    "npv": -719462.9313284628,
+    "payback_quarter": null,
+    "cost_of_delay": {
+      "APP-CORE-BNK:R-DORA-01": 0.0,
+      "APP-CORE-BNK:R-DORA-02": 0.0,
+      "APP-CORE-BNK:R-DORA-03": 0.0,
+      "APP-CORE-BNK:R-GDPR-01": 0.0,
+      "APP-CORE-BNK:R-GDPR-02": 0.0,
+      "APP-CORE-BNK:R-NIS2-01": 0.0,
+      "APP-CORE-BNK:R-NIS2-02": 0.0,
+      "APP-CORE-BNK:R-NIS2-03": 0.0,
+      "APP-CORE-BNK:R-ISO27001-01": 0.0,
+      "APP-CORE-BNK:R-ISO27001-02": 0.0,
+      "APP-CORE-BNK:R-ISO27001-03": 0.0,
+      "APP-LEDGER:R-DORA-01": 0.0,
+      "APP-LEDGER:R-DORA-03": 0.0,
+      "APP-LEDGER:R-ISO27001-01": 0.0,
+      "APP-LEDGER:R-ISO27001-03": 0.0,
+      "APP-KYC:R-GDPR-01": 0.0,
+      "APP-KYC:R-GDPR-02": 0.0,
+      "APP-KYC:R-GDPR-03": 0.0,
+      "APP-KYC:R-NIS2-01": 0.0,
+      "APP-KYC:R-NIS2-02": 0.0,
+      "APP-KYC:R-AIACT-01": 0.0,
+      "APP-KYC:R-AIACT-02": 0.0,
+      "APP-KYC:R-AIACT-03": 0.0,
+      "APP-KYC:R-ISO42001-01": 0.0,
+      "APP-KYC:R-ISO42001-02": 0.0,
+      "APP-KYC:R-ISO42001-03": 0.0,
+      "APP-FRAUD:R-AIACT-01": 0.0,
+      "APP-FRAUD:R-AIACT-03": 0.0,
+      "APP-FRAUD:R-ISO42001-01": 0.0,
+      "APP-FRAUD:R-ISO42001-02": 0.0,
+      "APP-CORE-BNK:modernise": 4800.0,
+      "APP-LEDGER:modernise": 4800.0,
+      "APP-LEGACY-RPT:modernise": 7200.0
+    },
+    "assumption_ids": [
+      "discount_rate",
+      "daily_rate_gbp",
+      "ramp_up_quarters",
+      "horizon_quarters"
+    ]
+  },
+  "simulation": null,
+  "manifest": {
+    "created_at": "2026-10-22T14:29:39.147768Z",
+    "regplan_version": "0.1.0",
+    "python_version": "3.11.5 (tags/v3.11.5:cce6ba9, Aug 24 2023, 14:38:34) [MSC v.1936 64 bit (AMD64)]",
+    "git_commit": "a4176b45c8849b060fa94871bc3650621f8e86a4",
+    "git_dirty": false,
+    "input_file_hashes": {
+      "src\\regplan\\examples\\landscapes\\fintech_hybrid.yaml": "dd04cec8679e2deed16253f60785bdb2a8db7ee0f15f75735e775186bf00a1fd",
+      "src\\regplan\\examples\\assumptions.yaml": "6f4bbebc46ce2d50601bd50a21bdb6297e084beb98b900984edfafc828c32507",
+      "src\\regplan\\examples\\packs\\dora.yaml": "d0db937b7f6dc9a2eb20be7bcf860ac601a416e4113c769b5bb6da724b52d026",
+      "src\\regplan\\examples\\packs\\gdpr.yaml": "d060351ab897af0f65fd892e84d5cd0c124d63ef0e41e6c4700ad1d238d75609",
+      "src\\regplan\\examples\\packs\\nis2.yaml": "eb6500bb2e8afbb733c236dbf2552c7c4084e086ecfce23013fd5369028ecb10",
+      "src\\regplan\\examples\\packs\\ai_act.yaml": "04f4a9e9dc700bee3855c0c72ce3b27ddb3557c162060f818194a9645fd45437",
+      "src\\regplan\\examples\\packs\\iso27001.yaml": "0fbfe912e5debfadaa180a2d889b7d547adcf05754a61017913b42835d581a46",
+      "src\\regplan\\examples\\packs\\iso42001.yaml": "76f496194436ff5fd027042ba9326ee27e64610af5685e5bfdc28d3251ff1eca"
+    },
+    "installed_packages": {
+      "pydantic": "2.14.1",
+      "pyyaml": "6.0.3",
+      "ortools": "9.15.6755",
+      "networkx": "3.6.1",
+      "numpy": "2.2.5",
+      "typer": "0.27.3",
+      "jinja2": "3.1.2",
+      "matplotlib": "3.10.1",
+      "hypothesis": "6.170.5",
+      "pytest": "9.1.1"
+    },
+    "scheduler_seed": 42,
+    "simulation_seed": 42
+  }
+}
