@@ -1,0 +1,46 @@
+regulation: ISO27001
+version: "2022"
+rules:
+  - id: R-ISO27001-01
+    regulation: ISO27001
+    title: Establish and maintain an ISMS for financial-data systems
+    trigger:
+      attribute: data_classification
+      operator: in
+      value: ["financial"]
+    deadline: "2028-01-01"
+    effort_person_days: 30.0
+    source_url: "https://www.iso.org/standard/27001"
+    last_verified: "2024-01-01"
+
+  - id: R-ISO27001-02
+    regulation: ISO27001
+    title: Conduct information security risk assessment for critical financial systems
+    trigger:
+      all:
+        - attribute: data_classification
+          operator: in
+          value: ["financial"]
+        - attribute: criticality
+          operator: in
+          value: ["critical"]
+    deadline: "2028-04-17"
+    effort_person_days: 25.0
+    source_url: "https://www.iso.org/standard/27001"
+    last_verified: "2024-01-01"
+
+  - id: R-ISO27001-03
+    regulation: ISO27001
+    title: Implement supplier security controls for locally-retained financial data
+    trigger:
+      all:
+        - attribute: data_residency
+          operator: eq
+          value: true
+        - attribute: data_classification
+          operator: in
+          value: ["financial"]
+    deadline: "2028-04-17"
+    effort_person_days: 20.0
+    source_url: "https://www.iso.org/standard/27001"
+    last_verified: "2024-01-01"

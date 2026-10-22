@@ -1,0 +1,21 @@
+{
+  "landscape_id": "legacy-heavy",
+  "scenario_name": "base",
+  "schedule": null,
+  "infeasibility": {
+    "conflicting_work_item_ids": [],
+    "conflicting_deadline_dates": [],
+    "conflicting_capacity_limits": [],
+    "conflicting_budget_limits": [],
+    "remediations": [
+      "Review predecessor chain lengths and deadline dates; consider splitting large WorkItems or increasing horizon_quarters."
+    ]
+  },
+  "financial": null,
+  "simulation": null,
+  "manifest": {
+    "regplan_version": "0.1.0",
+    "scheduler_seed": 42,
+    "simulation_seed": 42
+  }
+}

@@ -1,0 +1,244 @@
+{
+  "landscape_id": "cloud-native",
+  "scenario_name": "base",
+  "schedule": {
+    "waves": [
+      {
+        "quarter": 0,
+        "work_item_ids": [
+          "APP-ANALYTICS:R-AIACT-01",
+          "APP-AUTH:R-GDPR-02",
+          "APP-PAYMENTS:R-DORA-01",
+          "APP-PAYMENTS:R-DORA-02",
+          "APP-PAYMENTS:R-GDPR-01",
+          "APP-PAYMENTS:R-GDPR-02",
+          "APP-RECCOMEND:R-AIACT-01"
+        ]
+      },
+      {
+        "quarter": 1,
+        "work_item_ids": [
+          "APP-ANALYTICS:R-AIACT-03",
+          "APP-ANALYTICS:R-ISO42001-01",
+          "APP-AUTH:R-GDPR-01",
+          "APP-RECCOMEND:R-AIACT-03",
+          "APP-RECCOMEND:R-ISO42001-01",
+          "APP-RECCOMEND:R-ISO42001-02"
+        ]
+      },
+      {
+        "quarter": 2,
+        "work_item_ids": [
+          "APP-ANALYTICS:R-ISO42001-02",
+          "APP-AUTH:R-NIS2-01",
+          "APP-PAYMENTS:R-DORA-03",
+          "APP-PAYMENTS:R-NIS2-01",
+          "APP-RECCOMEND:modernise"
+        ]
+      },
+      {
+        "quarter": 3,
+        "work_item_ids": [
+          "APP-ANALYTICS:modernise",
+          "APP-AUTH:R-NIS2-02",
+          "APP-GATEWAY:R-NIS2-01",
+          "APP-GATEWAY:R-NIS2-02",
+          "APP-PAYMENTS:R-NIS2-02"
+        ]
+      },
+      {
+        "quarter": 4,
+        "work_item_ids": [
+          "APP-AUTH:R-NIS2-03",
+          "APP-PAYMENTS:R-ISO27001-01",
+          "APP-PAYMENTS:R-ISO27001-02",
+          "APP-PAYMENTS:R-NIS2-03"
+        ]
+      },
+      {
+        "quarter": 5,
+        "work_item_ids": [
+          "APP-PAYMENTS:R-ISO27001-03"
+        ]
+      }
+    ],
+    "work_item_starts": {
+      "APP-AUTH:R-GDPR-01": 1,
+      "APP-AUTH:R-GDPR-02": 0,
+      "APP-AUTH:R-NIS2-01": 2,
+      "APP-AUTH:R-NIS2-02": 3,
+      "APP-AUTH:R-NIS2-03": 4,
+      "APP-PAYMENTS:R-DORA-01": 0,
+      "APP-PAYMENTS:R-DORA-02": 0,
+      "APP-PAYMENTS:R-DORA-03": 2,
+      "APP-PAYMENTS:R-GDPR-01": 0,
+      "APP-PAYMENTS:R-GDPR-02": 0,
+      "APP-PAYMENTS:R-ISO27001-01": 4,
+      "APP-PAYMENTS:R-ISO27001-02": 4,
+      "APP-PAYMENTS:R-ISO27001-03": 5,
+      "APP-PAYMENTS:R-NIS2-01": 2,
+      "APP-PAYMENTS:R-NIS2-02": 3,
+      "APP-PAYMENTS:R-NIS2-03": 4,
+      "APP-RECCOMEND:R-AIACT-01": 0,
+      "APP-RECCOMEND:R-AIACT-03": 1,
+      "APP-RECCOMEND:R-ISO42001-01": 1,
+      "APP-RECCOMEND:R-ISO42001-02": 1,
+      "APP-ANALYTICS:R-AIACT-01": 0,
+      "APP-ANALYTICS:R-AIACT-03": 1,
+      "APP-ANALYTICS:R-ISO42001-01": 1,
+      "APP-ANALYTICS:R-ISO42001-02": 2,
+      "APP-GATEWAY:R-NIS2-01": 3,
+      "APP-GATEWAY:R-NIS2-02": 3,
+      "APP-RECCOMEND:modernise": 2,
+      "APP-ANALYTICS:modernise": 3
+    },
+    "objective_value": 0.0,
+    "seed": 42
+  },
+  "infeasibility": null,
+  "financial": {
+    "cash_flows": [
+      {
+        "quarter": 0,
+        "capex": 0.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 120000.0,
+        "net": -120000.0
+      },
+      {
+        "quarter": 1,
+        "capex": 0.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 120000.0,
+        "net": -120000.0
+      },
+      {
+        "quarter": 2,
+        "capex": 16000.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 104000.0,
+        "net": -120000.0
+      },
+      {
+        "quarter": 3,
+        "capex": 36000.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 76000.0,
+        "net": -112000.0
+      },
+      {
+        "quarter": 4,
+        "capex": 36000.0,
+        "opex": 0.0,
+        "run_cost_savings": 0.0,
+        "migration_cost": 84000.0,
+        "net": -120000.0
+      },
+      {
+        "quarter": 5,
+        "capex": 36000.0,
+        "opex": 0.0,
+        "run_cost_savings": 800.0,
+        "migration_cost": 16000.0,
+        "net": -51200.0
+      },
+      {
+        "quarter": 6,
+        "capex": 36000.0,
+        "opex": 0.0,
+        "run_cost_savings": 800.0,
+        "migration_cost": 0.0,
+        "net": -35200.0
+      },
+      {
+        "quarter": 7,
+        "capex": 0.0,
+        "opex": 0.0,
+        "run_cost_savings": 800.0,
+        "migration_cost": 0.0,
+        "net": 800.0
+      },
+      {
+        "quarter": 8,
+        "capex": 0.0,
+        "opex": 0.0,
+        "run_cost_savings": 800.0,
+        "migration_cost": 0.0,
+        "net": 800.0
+      },
+      {
+        "quarter": 9,
+        "capex": 0.0,
+        "opex": 0.0,
+        "run_cost_savings": 8000.0,
+        "migration_cost": 0.0,
+        "net": 8000.0
+      },
+      {
+        "quarter": 10,
+        "capex": 0.0,
+        "opex": 0.0,
+        "run_cost_savings": 8000.0,
+        "migration_cost": 0.0,
+        "net": 8000.0
+      },
+      {
+        "quarter": 11,
+        "capex": 0.0,
+        "opex": 0.0,
+        "run_cost_savings": 8000.0,
+        "migration_cost": 0.0,
+        "net": 8000.0
+      }
+    ],
+    "tco": 680000.0,
+    "npv": -556094.7834913301,
+    "payback_quarter": null,
+    "cost_of_delay": {
+      "APP-AUTH:R-GDPR-01": 0.0,
+      "APP-AUTH:R-GDPR-02": 0.0,
+      "APP-AUTH:R-NIS2-01": 0.0,
+      "APP-AUTH:R-NIS2-02": 0.0,
+      "APP-AUTH:R-NIS2-03": 0.0,
+      "APP-PAYMENTS:R-DORA-01": 0.0,
+      "APP-PAYMENTS:R-DORA-02": 0.0,
+      "APP-PAYMENTS:R-DORA-03": 0.0,
+      "APP-PAYMENTS:R-GDPR-01": 0.0,
+      "APP-PAYMENTS:R-GDPR-02": 0.0,
+      "APP-PAYMENTS:R-ISO27001-01": 0.0,
+      "APP-PAYMENTS:R-ISO27001-02": 0.0,
+      "APP-PAYMENTS:R-ISO27001-03": 0.0,
+      "APP-PAYMENTS:R-NIS2-01": 0.0,
+      "APP-PAYMENTS:R-NIS2-02": 0.0,
+      "APP-PAYMENTS:R-NIS2-03": 0.0,
+      "APP-RECCOMEND:R-AIACT-01": 0.0,
+      "APP-RECCOMEND:R-AIACT-03": 0.0,
+      "APP-RECCOMEND:R-ISO42001-01": 0.0,
+      "APP-RECCOMEND:R-ISO42001-02": 0.0,
+      "APP-ANALYTICS:R-AIACT-01": 0.0,
+      "APP-ANALYTICS:R-AIACT-03": 0.0,
+      "APP-ANALYTICS:R-ISO42001-01": 0.0,
+      "APP-ANALYTICS:R-ISO42001-02": 0.0,
+      "APP-GATEWAY:R-NIS2-01": 0.0,
+      "APP-GATEWAY:R-NIS2-02": 0.0,
+      "APP-RECCOMEND:modernise": 800.0,
+      "APP-ANALYTICS:modernise": 7200.0
+    },
+    "assumption_ids": [
+      "discount_rate",
+      "daily_rate_gbp",
+      "ramp_up_quarters",
+      "horizon_quarters"
+    ]
+  },
+  "simulation": null,
+  "manifest": {
+    "regplan_version": "0.1.0",
+    "scheduler_seed": 42,
+    "simulation_seed": 42
+  }
+}

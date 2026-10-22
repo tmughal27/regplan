@@ -1,0 +1,193 @@
+# Fintech-hybrid application landscape — test fixture
+# 7 applications, 7 interfaces, 3 vendors, 3 scenarios
+# Covers: retire/replace/replatform/retain dispositions, cyclic SCC (CORE-BNK ↔ LEDGER),
+#         PII + financial data, AI-enabled apps, DORA-critical systems
+id: fintech-hybrid
+
+applications:
+
+  - id: APP-CORE-BNK
+    name: Core Banking System
+    owner: core-engineering
+    business_value: 0.95
+    technical_health: 0.30   # replatform: low-health-high-value rule
+    data_residency: true
+    data_classification: financial
+    ai_enabled: false
+    vendor_id: V-TEMENOS
+    attributes:
+      processes_personal_data: true
+      uses_ml: false
+      criticality: critical   # triggers DORA-02, NIS2-01/02/03
+      ict_service: true
+
+  - id: APP-LEDGER
+    name: General Ledger
+    owner: finance
+    business_value: 0.90
+    technical_health: 0.25   # replatform: low-health-high-value rule
+    data_residency: true
+    data_classification: financial
+    ai_enabled: false
+    vendor_id: V-TEMENOS
+    attributes:
+      processes_personal_data: false
+      uses_ml: false
+      criticality: medium     # only triggers DORA-01/03 (not DORA-02, not NIS2)
+      ict_service: true
+
+  - id: APP-KYC
+    name: KYC & Identity Verification
+    owner: compliance
+    business_value: 0.80
+    technical_health: 0.72   # retain: healthy-retain rule
+    data_residency: true
+    data_classification: PII
+    ai_enabled: true
+    vendor_id: null
+    attributes:
+      processes_personal_data: true
+      uses_ml: true
+      criticality: high       # triggers AI Act-02, NIS2-01/02, GDPR-01/02/03
+      ict_service: false
+
+  - id: APP-FRAUD
+    name: Fraud Detection Engine
+    owner: risk
+    business_value: 0.85
+    technical_health: 0.75   # retain: healthy-retain rule
+    data_residency: false
+    data_classification: internal   # internal: no DORA trigger
+    ai_enabled: true
+    vendor_id: null
+    attributes:
+      processes_personal_data: false  # no GDPR trigger
+      uses_ml: true
+      criticality: medium     # triggers AI Act-01/03 only (not AI Act-02, not NIS2)
+      ict_service: false
+
+  - id: APP-MOBILE
+    name: Mobile Banking App (BFF)
+    owner: digital
+    business_value: 0.75
+    technical_health: 0.82   # retain: healthy-retain rule
+    data_residency: false
+    data_classification: PII
+    ai_enabled: false
+    vendor_id: null
+    attributes:
+      processes_personal_data: false  # proxy only — no GDPR-02 trigger
+      uses_ml: false
+      criticality: medium     # no NIS2 trigger
+      ict_service: false
+
+  - id: APP-LEGACY-RPT
+    name: Legacy Regulatory Reporting
+    owner: compliance
+    business_value: 0.45     # replace: very-low-health rule (bv < 0.7, health <= 0.20)
+    technical_health: 0.12
+    data_residency: true
+    data_classification: internal   # internal: no DORA trigger
+    ai_enabled: false
+    vendor_id: V-ORACLE
+    attributes:
+      processes_personal_data: false
+      uses_ml: false
+      criticality: low        # no NIS2 trigger
+      ict_service: false
+
+  - id: APP-NOTIF
+    name: Notification & Messaging Service
+    owner: platform
+    business_value: 0.50
+    technical_health: 0.88
+    data_residency: false
+    data_classification: internal
+    ai_enabled: false
+    vendor_id: null
+    attributes:
+      processes_personal_data: false
+      uses_ml: false
+      criticality: low
+      ict_service: false
+
+interfaces:
+  # Cycle: CORE-BNK ↔ LEDGER (SCC test)
+  - id: IF-COREBNK-LEDGER
+    source_id: APP-CORE-BNK
+    target_id: APP-LEDGER
+    protocol: ISO20022
+    data_classification: financial
+
+  - id: IF-LEDGER-COREBNK
+    source_id: APP-LEDGER
+    target_id: APP-CORE-BNK
+    protocol: ISO20022
+    data_classification: financial
+
+  # KYC feeds into core banking
+  - id: IF-KYC-COREBNK
+    source_id: APP-KYC
+    target_id: APP-CORE-BNK
+    protocol: REST
+    data_classification: PII
+
+  # Fraud detection reads from core banking
+  - id: IF-COREBNK-FRAUD
+    source_id: APP-CORE-BNK
+    target_id: APP-FRAUD
+    protocol: Kafka
+    data_classification: financial
+
+  # Mobile BFF calls core banking and KYC
+  - id: IF-MOBILE-COREBNK
+    source_id: APP-MOBILE
+    target_id: APP-CORE-BNK
+    protocol: REST
+    data_classification: financial
+
+  - id: IF-MOBILE-KYC
+    source_id: APP-MOBILE
+    target_id: APP-KYC
+    protocol: REST
+    data_classification: PII
+
+  # Legacy reporting reads from ledger
+  - id: IF-LEDGER-LEGACYRPT
+    source_id: APP-LEDGER
+    target_id: APP-LEGACY-RPT
+    protocol: JDBC
+    data_classification: financial
+
+vendors:
+  - id: V-TEMENOS
+    name: Temenos AG
+    tier: 1
+
+  - id: V-ORACLE
+    name: Oracle Corporation
+    tier: 1
+
+  - id: V-AWS
+    name: Amazon Web Services
+    tier: 2
+
+scenarios:
+  - name: progressive
+    capacity_multiplier: 1.0
+    budget_multiplier: 1.0
+    deadline_extension_days: 0
+
+  - name: big_bang
+    capacity_multiplier: 2.0
+    budget_multiplier: 2.0
+    deadline_extension_days: 0
+
+  - name: minimum_compliance
+    capacity_multiplier: 0.7
+    budget_multiplier: 0.6
+    scope_filter:
+      - APP-CORE-BNK
+      - APP-LEDGER
+      - APP-KYC
+    deadline_extension_days: 0

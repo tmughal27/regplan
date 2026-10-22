@@ -1,0 +1,42 @@
+regulation: ISO42001
+version: "2023"
+rules:
+  - id: R-ISO42001-01
+    regulation: ISO42001
+    title: Establish an AI Management System (AIMS) policy and objectives
+    trigger:
+      attribute: ai_enabled
+      operator: eq
+      value: true
+    deadline: "2028-07-01"
+    effort_person_days: 20.0
+    source_url: "https://www.iso.org/standard/81230.html"
+    last_verified: "2024-06-01"
+
+  - id: R-ISO42001-02
+    regulation: ISO42001
+    title: Conduct AI risk and impact assessment for ML systems
+    trigger:
+      attribute: uses_ml
+      operator: eq
+      value: true
+    deadline: "2028-07-01"
+    effort_person_days: 35.0
+    source_url: "https://www.iso.org/standard/81230.html"
+    last_verified: "2024-06-01"
+
+  - id: R-ISO42001-03
+    regulation: ISO42001
+    title: Implement human oversight and transparency controls for high-risk AI
+    trigger:
+      all:
+        - attribute: uses_ml
+          operator: eq
+          value: true
+        - attribute: criticality
+          operator: in
+          value: ["high", "critical"]
+    deadline: "2028-10-01"
+    effort_person_days: 30.0
+    source_url: "https://www.iso.org/standard/81230.html"
+    last_verified: "2024-06-01"
