@@ -1,0 +1,53 @@
+# McKinsey DORA large-FI programme assumptions
+# Source: McKinsey "Europe's new resilience regime" (Boehm, Schneider et al., 2024)
+# Parameter IDs from mckinsey_dora_case_study.md (S-xx = sourced, A-xx = assumed)
+#
+# Key calibration:
+#   daily_rate_gbp (treated as EUR) = 250,000 EUR/day
+#   Total effort = 400 person-days across 5 clusters
+#   Total cost = 400 x 250,000 = EUR 100M  [V-1: within +/-25% of S-08]
+#
+planning_start: "2024-02-01"   # S-02 (2024-01-01) + S-03 (1 month mobilisation)
+horizon_quarters: 8             # A-01: 2024-Q1 through 2025-Q4, covers post-deadline tail (S-11)
+discount_rate: 0.08             # A-05
+daily_rate_gbp: 250000.0        # EUR/day; loaded rate covering labour + technology + licences (A-03/A-04)
+quarterly_capacity_days: 450.0  # 300 FTE programme resource (S-04), abstracted to programme capacity
+cumulative_budget_gbp: 100000000.0  # EUR 100M (S-08, A-13)
+
+cost_overrun_dist:
+  type: triangular
+  low: 0.85
+  mode: 1.05
+  high: 1.40
+
+# Wider slip distribution to reflect DORA programme risks:
+# RTS batch 2 delays (A-11), counterparty responsiveness (A-12), programme complexity
+duration_slip_dist:
+  type: triangular
+  low: 0.00
+  mode: 0.50    # mode ~1.5 months slip
+  high: 1.50    # max ~4.5 months slip
+
+benefit_realization_dist:
+  type: triangular
+  low: 0.70
+  mode: 0.90
+  high: 1.00
+
+overrun_correlation: 0.35
+ramp_up_quarters: 1
+simulation_seed: 42
+
+decision_table:
+  - rule_id: retain-strategic-programme
+    min_business_value: 0.60
+    max_business_value: 1.0
+    min_technical_health: 0.60
+    max_technical_health: 1.0
+    disposition: retain
+  - rule_id: retain-all
+    min_business_value: 0.0
+    max_business_value: 1.0
+    min_technical_health: 0.0
+    max_technical_health: 1.0
+    disposition: retain

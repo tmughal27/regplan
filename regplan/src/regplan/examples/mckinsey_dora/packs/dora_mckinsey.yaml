@@ -1,0 +1,93 @@
+# DORA regulation pack — McKinsey large-FI programme calibration
+# Source: Regulation (EU) 2022/2554, content areas per McKinsey (2024) case study
+# Verify all article references against EUR-Lex Official Journal text.
+#
+# Cost calibration (assumptions.yaml daily_rate_gbp = EUR 250,000):
+#   R-MCK-GOV  56 days * 250k = EUR 14M  (14% of EUR 100M: PMO-01 + TRN-01)
+#   R-MCK-ICT 180 days * 250k = EUR 45M  (45% of EUR 100M: ICT-01 + ICT-02 + ICT-03)
+#   R-MCK-TST  44 days * 250k = EUR 11M  (11% of EUR 100M: TST-01 + TST-02)
+#   R-MCK-TPR  76 days * 250k = EUR 19M  (19% of EUR 100M: TPR-01..04)
+#   R-MCK-INC  44 days * 250k = EUR 11M  (11% of EUR 100M: INC-01 + INC-02 + INF-01)
+#   TOTAL:    400 days * 250k = EUR 100M  [V-1 calibration target]
+#
+# Duration formula (from regplan matcher): ceil(effort / 60) quarters
+#   R-MCK-GOV:  ceil(56/60) = 1 quarter
+#   R-MCK-ICT:  ceil(180/60) = 3 quarters  <-- CRITICAL PATH, hard deadline 2025-01-17
+#   R-MCK-TST:  ceil(44/60) = 1 quarter
+#   R-MCK-TPR:  ceil(76/60) = 2 quarters
+#   R-MCK-INC:  ceil(44/60) = 1 quarter
+#
+regulation: DORA-MCK
+version: "2025-01"
+rules:
+
+  # Area 1: Programme orchestration (PMO + training) — soft deadline, BAU tail allowed (S-11)
+  - id: R-MCK-GOV
+    regulation: DORA-MCK
+    title: "Programme orchestration, tracking tooling, and BAU training rollout (PMO-01 + TRN-01)"
+    trigger:
+      attribute: dora_cluster
+      operator: eq
+      value: governance
+    deadline: "2025-12-31"    # soft: allowed to run past S-01 (S-11)
+    effort_person_days: 56.0
+    source_url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554"
+    last_verified: "2024-06-28"
+
+  # Area 2: ICT risk management — hard deadline S-01 (DORA Article 5-16)
+  # Covers: risk framework (ICT-01), critical function mapping (ICT-02),
+  # and technology control upgrades (ICT-03, 30% of total programme cost)
+  # Critical path item: ICT-03 drives the schedule (mode 8 months).
+  - id: R-MCK-ICT
+    regulation: DORA-MCK
+    title: "ICT risk management framework, critical function mapping, and technology control upgrades (ICT-01/02/03)"
+    trigger:
+      attribute: dora_cluster
+      operator: eq
+      value: ict_controls
+    deadline: "2025-01-17"    # S-01 hard deadline
+    effort_person_days: 180.0
+    source_url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554#d1e2057-1-1"
+    last_verified: "2024-06-28"
+
+  # Area 3: Digital operational resilience testing (TST-01 + TST-02 including TLPT)
+  - id: R-MCK-TST
+    regulation: DORA-MCK
+    title: "Resilience testing programme including switchover tests and TLPT scenarios (TST-01 + TST-02)"
+    trigger:
+      attribute: dora_cluster
+      operator: eq
+      value: ict_controls
+    deadline: "2025-01-17"    # S-01 hard deadline
+    effort_person_days: 44.0
+    source_url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554#d1e2613-1-1"
+    last_verified: "2024-06-28"
+
+  # Area 4: ICT third-party risk management (TPR-01..04)
+  # Includes provider scoping, register of information, contract remediation (N=500),
+  # concentration risk, monitoring and exit plans.
+  - id: R-MCK-TPR
+    regulation: DORA-MCK
+    title: "ICT third-party risk: provider scoping, register, contract remediation, concentration risk (TPR-01..04)"
+    trigger:
+      attribute: dora_cluster
+      operator: eq
+      value: third_party
+    deadline: "2025-01-17"    # S-01 hard deadline (core items; some monitoring ongoing)
+    effort_person_days: 76.0
+    source_url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554#d1e2869-1-1"
+    last_verified: "2024-06-28"
+
+  # Area 5: Incident management, classification, reporting, and information sharing
+  # (INC-01 + INC-02 + INF-01)
+  - id: R-MCK-INC
+    regulation: DORA-MCK
+    title: "Incident classification, centralised reporting tooling, and information-sharing arrangements (INC-01/02 + INF-01)"
+    trigger:
+      attribute: dora_cluster
+      operator: eq
+      value: incident_soc
+    deadline: "2025-01-17"    # S-01 hard deadline for core items
+    effort_person_days: 44.0
+    source_url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554#d1e2397-1-1"
+    last_verified: "2024-06-28"

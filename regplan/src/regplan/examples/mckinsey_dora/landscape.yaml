@@ -1,0 +1,82 @@
+# McKinsey DORA large-FI programme landscape (Option A: service groupings)
+# Source: McKinsey "Europe's new resilience regime" (Boehm, Schneider et al., 2024)
+#
+# Four synthetic application groups represent DORA programme workstreams.
+# Each group maps to 1-2 content clusters from section 5.1 of the case study.
+# All retain disposition: these are active programme areas, not legacy to decommission.
+#
+id: mckinsey-dora-large-fi
+
+applications:
+
+  # Group governance and programme orchestration (PMO-01 + TRN-01 = 14% of EUR 100M)
+  - id: APP-GRP
+    name: Group Governance and Programme Orchestration
+    owner: pmo
+    business_value: 0.90
+    technical_health: 0.85
+    data_residency: false
+    data_classification: internal
+    ai_enabled: false
+    attributes:
+      dora_cluster: governance     # triggers R-MCK-GOV
+
+  # Critical-function platforms: ICT risk framework + resilience testing
+  # (ICT-01 + ICT-02 + ICT-03 + TST-01 + TST-02 = 56% of EUR 100M)
+  - id: APP-CIF
+    name: Critical and Important Function Platforms
+    owner: technology
+    business_value: 0.95
+    technical_health: 0.75
+    data_residency: true
+    data_classification: financial
+    ai_enabled: false
+    attributes:
+      dora_cluster: ict_controls   # triggers R-MCK-ICT and R-MCK-TST
+
+  # Third-party ICT provider estate (TPR-01 + TPR-02 + TPR-03 + TPR-04 = 19% of EUR 100M)
+  - id: APP-TPR
+    name: Third-Party ICT Provider Register
+    owner: legal
+    business_value: 0.80
+    technical_health: 0.78
+    data_residency: false
+    data_classification: internal
+    ai_enabled: false
+    attributes:
+      dora_cluster: third_party    # triggers R-MCK-TPR
+
+  # SOC and incident management tooling (INC-01 + INC-02 + INF-01 = 11% of EUR 100M)
+  - id: APP-SOC
+    name: Security Operations Centre and Incident Platform
+    owner: risk
+    business_value: 0.85
+    technical_health: 0.80
+    data_residency: false
+    data_classification: internal
+    ai_enabled: false
+    attributes:
+      dora_cluster: incident_soc   # triggers R-MCK-INC
+
+# No real system interfaces: these are programme-level workstream groups
+interfaces: []
+
+vendors: []
+
+scenarios:
+  - name: baseline
+    capacity_multiplier: 1.0
+    budget_multiplier: 1.0
+    deadline_extension_days: 0
+
+  # SC-4: Legal pool halved (50 -> 25 FTE); tests which constraint binds
+  - name: capacity_squeeze
+    capacity_multiplier: 0.5
+    budget_multiplier: 1.0
+    deadline_extension_days: 0
+
+  # SC-5: Budget cap at EUR 70M
+  - name: budget_cap
+    capacity_multiplier: 1.0
+    budget_multiplier: 0.70
+    deadline_extension_days: 0
