@@ -1,0 +1,561 @@
+<title>McKinsey DORA — regplan Results</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  /* Layout: split header + metric tiles + tables on a clean regulatory document grid */
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap');
+
+  :root {
+    --bg: #f7f6f3;
+    --bg-card: #ffffff;
+    --bg-stripe: #f0efe9;
+    --fg: #1a1916;
+    --fg-muted: #6b6860;
+    --accent: #b85c00;       /* regulatory amber */
+    --accent-soft: #f5e6d6;
+    --pass: #1e6e3e;
+    --pass-bg: #e6f4ed;
+    --warn: #9b4c00;
+    --warn-bg: #fde8d0;
+    --crit: #c0000a;
+    --crit-bg: #fce8e9;
+    --border: #d9d7d0;
+    --chart-1: #2563a8;
+    --chart-2: #b85c00;
+    --chart-3: #1e6e3e;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1a1916;
+      --bg-card: #252420;
+      --bg-stripe: #1f1e1b;
+      --fg: #e8e6e0;
+      --fg-muted: #908d84;
+      --accent: #e07530;
+      --accent-soft: #3a2510;
+      --pass: #4db87a;
+      --pass-bg: #0f2a1c;
+      --warn: #e09050;
+      --warn-bg: #2a1500;
+      --crit: #e0505a;
+      --crit-bg: #2a0508;
+      --border: #3a3830;
+      --chart-1: #5a9fe0;
+      --chart-2: #e07530;
+      --chart-3: #4db87a;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1a1916;
+    --bg-card: #252420;
+    --bg-stripe: #1f1e1b;
+    --fg: #e8e6e0;
+    --fg-muted: #908d84;
+    --accent: #e07530;
+    --accent-soft: #3a2510;
+    --pass: #4db87a;
+    --pass-bg: #0f2a1c;
+    --warn: #e09050;
+    --warn-bg: #2a1500;
+    --crit: #e0505a;
+    --crit-bg: #2a0508;
+    --border: #3a3830;
+    --chart-1: #5a9fe0;
+    --chart-2: #e07530;
+    --chart-3: #4db87a;
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 32px;
+  }
+
+  .page { max-width: 900px; margin: 0 auto; }
+
+  /* Header */
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 600;
+    line-height: 1.2;
+    text-wrap: balance;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    color: var(--fg-muted);
+    font-size: 13px;
+    margin-bottom: 28px;
+  }
+
+  /* Metadata bar */
+  .meta-bar {
+    display: flex; flex-wrap: wrap; gap: 8px 20px;
+    border-top: 2px solid var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-block: 10px;
+    margin-bottom: 32px;
+    font-size: 12px;
+    color: var(--fg-muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .meta-bar strong { color: var(--fg); }
+
+  /* Section headings */
+  h2 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    margin-top: 36px;
+  }
+  h3 {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--fg-muted);
+    margin-bottom: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Metric tiles */
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .tile {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+  }
+  .tile .label { font-size: 11px; font-family: 'IBM Plex Mono', monospace; letter-spacing: .08em; color: var(--fg-muted); text-transform: uppercase; margin-bottom: 6px; }
+  .tile .value { font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .tile .sub { font-size: 11px; color: var(--fg-muted); margin-top: 3px; }
+  .tile.accent { border-left: 3px solid var(--accent); }
+  .tile.crit { border-left: 3px solid var(--crit); }
+  .tile.pass { border-left: 3px solid var(--pass); }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin-bottom: 24px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 400px; }
+  thead th {
+    background: var(--bg-stripe);
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    border-bottom: 1px solid var(--border);
+  }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody td { padding: 9px 12px; vertical-align: top; }
+  tbody tr:nth-child(even) { background: var(--bg-stripe); }
+
+  /* Badges */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .badge.pass { background: var(--pass-bg); color: var(--pass); }
+  .badge.warn { background: var(--warn-bg); color: var(--warn); }
+  .badge.crit { background: var(--crit-bg); color: var(--crit); }
+  .badge.hard { background: var(--crit-bg); color: var(--crit); }
+  .badge.soft { background: var(--accent-soft); color: var(--accent); }
+
+  /* Monte Carlo bar chart */
+  .mc-bars { display: grid; grid-template-columns: auto 1fr auto; gap: 4px 10px; align-items: center; margin-bottom: 20px; }
+  .mc-bars .pct { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--fg-muted); text-align: right; }
+  .mc-bars .bar-track { background: var(--border); border-radius: 2px; height: 10px; }
+  .mc-bars .bar-fill { height: 100%; border-radius: 2px; background: var(--chart-1); }
+  .mc-bars .val { font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+
+  /* Tornado bars */
+  .tornado { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: center; }
+  .tornado .name { font-size: 12px; color: var(--fg-muted); text-align: right; white-space: nowrap; }
+  .tornado .bar-fill { height: 14px; border-radius: 2px; }
+
+  /* Validation criteria */
+  .criteria { display: grid; gap: 8px; }
+  .criterion {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+  .criterion .id { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--fg-muted); font-weight: 600; }
+  .criterion .text { min-width: 0; }
+  .criterion .text .result { font-size: 11px; color: var(--fg-muted); margin-top: 2px; font-family: 'IBM Plex Mono', monospace; }
+
+  /* Schedule wave */
+  .waves { display: grid; gap: 6px; }
+  .wave {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 10px;
+    align-items: start;
+    padding: 10px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .wave .q { font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 600; color: var(--accent); line-height: 1; padding-top: 2px; }
+  .wave .items { display: flex; flex-wrap: wrap; gap: 6px; }
+  .wave .item {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  .wave .item.crit { background: var(--crit-bg); color: var(--crit); }
+
+  /* Scenario comparison */
+  .scenario-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .scenario-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+  }
+  .scenario-card .scenario-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .scenario-card .kv { display: grid; grid-template-columns: 1fr auto; gap: 2px; font-size: 12px; border-bottom: 1px solid var(--border); padding-block: 4px; }
+  .scenario-card .kv:last-child { border-bottom: none; }
+  .scenario-card .k { color: var(--fg-muted); }
+  .scenario-card .v { font-family: 'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--fg-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+  }
+</style>
+
+<div class="page">
+
+  <p class="eyebrow">regplan · McKinsey DORA Case Study</p>
+  <h1>Large European FI — DORA Programme Results</h1>
+  <p class="subtitle">SC-0 Baseline · 4 synthetic application groups (Option A) · N=1,000 Monte Carlo runs · seed=42</p>
+
+  <div class="meta-bar">
+    <span>Source: <strong>McKinsey "Europe's new resilience regime" (2024)</strong></span>
+    <span>Regulation: <strong>DORA (EU) 2022/2554</strong></span>
+    <span>Deadline: <strong>2025-01-17 (S-01)</strong></span>
+    <span>Planning start: <strong>2024-02-01</strong></span>
+    <span>Total target: <strong>EUR 100M (S-08)</strong></span>
+  </div>
+
+  <!-- Key metrics -->
+  <h3>Key Financial Metrics</h3>
+  <div class="tiles">
+    <div class="tile accent">
+      <div class="label">TCO (baseline)</div>
+      <div class="value">€100M</div>
+      <div class="sub">EUR 100,000,000 — equals S-08 target exactly</div>
+    </div>
+    <div class="tile pass">
+      <div class="label">P50 cost (Monte Carlo)</div>
+      <div class="value">€110M</div>
+      <div class="sub">EUR 109,969,354 — within ±25% of target ✓</div>
+    </div>
+    <div class="tile">
+      <div class="label">P95 cost</div>
+      <div class="value">€119M</div>
+      <div class="sub">Well inside EUR 25–150M envelope (D-01) ✓</div>
+    </div>
+    <div class="tile crit">
+      <div class="label">ICT deadline risk</div>
+      <div class="value">26.5%</div>
+      <div class="sub">R-MCK-ICT miss probability (directional ~33% from S-10)</div>
+    </div>
+    <div class="tile">
+      <div class="label">NPV (baseline)</div>
+      <div class="value">−€96M</div>
+      <div class="sub">Compliance cost centre — no benefit streams</div>
+    </div>
+    <div class="tile">
+      <div class="label">Work items</div>
+      <div class="value">5</div>
+      <div class="sub">1 wave · all mobilised immediately in Q0</div>
+    </div>
+  </div>
+
+  <!-- Schedule -->
+  <h2>Optimised Schedule</h2>
+  <p style="font-size:13px;color:var(--fg-muted);margin-bottom:16px;">CP-SAT schedules all items at Q0 — the critical ICT cluster (3 quarters, hard deadline) has zero slack and must start immediately.</p>
+  <div class="waves">
+    <div class="wave">
+      <div class="q">Q0</div>
+      <div class="items">
+        <span class="item crit">APP-CIF : R-MCK-ICT</span>
+        <span class="item">APP-CIF : R-MCK-TST</span>
+        <span class="item">APP-GRP : R-MCK-GOV</span>
+        <span class="item">APP-SOC : R-MCK-INC</span>
+        <span class="item">APP-TPR : R-MCK-TPR</span>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12px;color:var(--fg-muted);margin-top:10px;font-family:'IBM Plex Mono',monospace;">
+    APP-CIF:R-MCK-ICT — 3 quarters · hard deadline 2025-01-17 · zero slack · binding constraint: deadline
+  </p>
+
+  <!-- Work items detail -->
+  <h2>Work Items Detail</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cluster</th>
+          <th>Effort (days)</th>
+          <th>Duration</th>
+          <th>Cost (EUR)</th>
+          <th>Deadline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>APP-GRP:R-MCK-GOV</code></td>
+          <td>Governance / PMO + Training (14%)</td>
+          <td style="font-variant-numeric:tabular-nums">56</td>
+          <td>1 quarter</td>
+          <td style="font-variant-numeric:tabular-nums">14,000,000</td>
+          <td><span class="badge soft">Soft 2025-12-31</span></td>
+        </tr>
+        <tr>
+          <td><code>APP-CIF:R-MCK-ICT</code></td>
+          <td>ICT risk mgmt + technology controls (45%)</td>
+          <td style="font-variant-numeric:tabular-nums">180</td>
+          <td>3 quarters</td>
+          <td style="font-variant-numeric:tabular-nums">45,000,000</td>
+          <td><span class="badge hard">Hard 2025-01-17</span></td>
+        </tr>
+        <tr>
+          <td><code>APP-CIF:R-MCK-TST</code></td>
+          <td>Resilience testing + TLPT (11%)</td>
+          <td style="font-variant-numeric:tabular-nums">44</td>
+          <td>1 quarter</td>
+          <td style="font-variant-numeric:tabular-nums">11,000,000</td>
+          <td><span class="badge hard">Hard 2025-01-17</span></td>
+        </tr>
+        <tr>
+          <td><code>APP-TPR:R-MCK-TPR</code></td>
+          <td>Third-party risk / contracts (N=500, 19%)</td>
+          <td style="font-variant-numeric:tabular-nums">76</td>
+          <td>2 quarters</td>
+          <td style="font-variant-numeric:tabular-nums">19,000,000</td>
+          <td><span class="badge hard">Hard 2025-01-17</span></td>
+        </tr>
+        <tr>
+          <td><code>APP-SOC:R-MCK-INC</code></td>
+          <td>Incident management + info sharing (11%)</td>
+          <td style="font-variant-numeric:tabular-nums">44</td>
+          <td>1 quarter</td>
+          <td style="font-variant-numeric:tabular-nums">11,000,000</td>
+          <td><span class="badge hard">Hard 2025-01-17</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:11px;color:var(--fg-muted);font-family:'IBM Plex Mono',monospace;">Total: 400 person-days × EUR 250,000/day = EUR 100,000,000</p>
+
+  <!-- Monte Carlo -->
+  <h2>Monte Carlo Simulation (N=1,000)</h2>
+  <p style="font-size:13px;color:var(--fg-muted);margin-bottom:16px;">Duration slip: Triangular(0.0, 0.50, 1.50) quarters. Cost overrun: Triangular(0.85, 1.05, 1.40).</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:24px;">
+    <div>
+      <h3>Cost Percentiles</h3>
+      <div class="mc-bars">
+        <span class="pct">P50</span>
+        <div class="bar-track"><div class="bar-fill" style="width:73%"></div></div>
+        <span class="val">€109.97M</span>
+        <span class="pct">P80</span>
+        <div class="bar-track"><div class="bar-fill" style="width:76%;background:var(--chart-2)"></div></div>
+        <span class="val">€114.75M</span>
+        <span class="pct">P95</span>
+        <div class="bar-track"><div class="bar-fill" style="width:79%;background:var(--chart-3)"></div></div>
+        <span class="val">€119.31M</span>
+      </div>
+    </div>
+    <div>
+      <h3>Deadline Miss Probabilities</h3>
+      <div class="mc-bars">
+        <span class="pct">R-MCK-ICT</span>
+        <div class="bar-track"><div class="bar-fill" style="width:26.5%;background:var(--crit)"></div></div>
+        <span class="val" style="color:var(--crit)">26.5%</span>
+        <span class="pct">R-MCK-TPR</span>
+        <div class="bar-track"><div class="bar-fill" style="width:0.5%"></div></div>
+        <span class="val">0.0%</span>
+        <span class="pct">R-MCK-TST</span>
+        <div class="bar-track"><div class="bar-fill" style="width:0.5%"></div></div>
+        <span class="val">0.0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tornado -->
+  <h3>Tornado — NPV Sensitivity</h3>
+  <div class="tornado" style="margin-bottom:24px;max-width:500px;">
+    <span class="name">duration_slip</span>
+    <div class="bar-fill" style="width:100%;background:var(--crit);opacity:.8"></div>
+    <span class="name">cost_overrun</span>
+    <div class="bar-fill" style="width:14%;background:var(--chart-2)"></div>
+    <span class="name">benefit_realiz.</span>
+    <div class="bar-fill" style="width:5%;background:var(--chart-3)"></div>
+  </div>
+  <p style="font-size:12px;color:var(--fg-muted);margin-bottom:24px;">Duration slip drives 7× more NPV variance than cost overrun — regulatory timing risk (A-11) is the dominant sensitivity.</p>
+
+  <!-- Scenario comparison -->
+  <h2>Scenario Comparison</h2>
+  <div class="scenario-grid">
+    <div class="scenario-card">
+      <div class="scenario-name">SC-0 Baseline (450 days/qtr)</div>
+      <div class="kv"><span class="k">TCO</span><span class="v">€100,000,000</span></div>
+      <div class="kv"><span class="k">Waves</span><span class="v">1 (all Q0)</span></div>
+      <div class="kv"><span class="k">Feasible</span><span class="v">Yes ✓</span></div>
+      <div class="kv"><span class="k">ICT deadline risk</span><span class="v" style="color:var(--crit)">26.5%</span></div>
+    </div>
+    <div class="scenario-card">
+      <div class="scenario-name">SC-4 Capacity Squeeze (270 days/qtr)</div>
+      <div class="kv"><span class="k">TCO</span><span class="v">€100,000,000</span></div>
+      <div class="kv"><span class="k">Waves</span><span class="v">3 (Q0, Q1, Q3)</span></div>
+      <div class="kv"><span class="k">Feasible</span><span class="v">Yes ✓</span></div>
+      <div class="kv"><span class="k">TPR delayed to</span><span class="v">Q1</span></div>
+    </div>
+  </div>
+  <p style="font-size:12px;color:var(--fg-muted);margin-top:10px;">SC-4: GOV deferred to Q3, TPR to Q1 — capacity constraint now binds; ICT+TST+INC fill Q0 to 268/270 days.</p>
+
+  <!-- Validation criteria -->
+  <h2>Validation Criteria</h2>
+  <p style="font-size:13px;color:var(--fg-muted);margin-bottom:16px;">From <code>mckinsey_dora_case_study.md</code> section 8.</p>
+  <div class="criteria">
+    <div class="criterion">
+      <span class="id">V-1</span>
+      <div class="text">
+        Cost calibration
+        <div class="result">P50 = EUR 109.97M · target EUR 75–125M (±25% of EUR 100M)</div>
+      </div>
+      <span class="badge pass">PASS</span>
+    </div>
+    <div class="criterion">
+      <span class="id">V-2</span>
+      <div class="text">
+        Cost envelope
+        <div class="result">P95 = EUR 119.31M · target ≤ EUR 150M (D-01 envelope)</div>
+      </div>
+      <span class="badge pass">PASS</span>
+    </div>
+    <div class="criterion">
+      <span class="id">V-3</span>
+      <div class="text">
+        Deadline risk (directional)
+        <div class="result">R-MCK-ICT miss = 26.5% · direction: 0% &lt; x &lt; 100% · cf. survey ~33% (S-10)</div>
+      </div>
+      <span class="badge pass">PASS</span>
+    </div>
+    <div class="criterion">
+      <span class="id">V-4</span>
+      <div class="text">
+        Post-deadline tail
+        <div class="result">R-MCK-GOV soft deadline 2025-12-31 — activity modelled past S-01</div>
+      </div>
+      <span class="badge pass">PASS</span>
+    </div>
+    <div class="criterion">
+      <span class="id">V-6</span>
+      <div class="text">
+        Infeasibility signal
+        <div class="result">SC-4 produces a feasible but delayed plan with TPR at Q1 and GOV at Q3 — constraint binds loudly in schedule</div>
+      </div>
+      <span class="badge warn">PARTIAL</span>
+    </div>
+    <div class="criterion">
+      <span class="id">V-7</span>
+      <div class="text">
+        Determinism
+        <div class="result">CP-SAT seed=42, num_workers=1, numpy seed=42 — byte-identical runs confirmed</div>
+      </div>
+      <span class="badge pass">PASS</span>
+    </div>
+    <div class="criterion">
+      <span class="id">V-8</span>
+      <div class="text">
+        Traceability
+        <div class="result">regplan explain APP-CIF:R-MCK-ICT → Q0, dur=3, slack=0, binding: deadline 2025-01-17</div>
+      </div>
+      <span class="badge pass">PASS</span>
+    </div>
+  </div>
+
+  <!-- Assumptions register -->
+  <h2>Key Assumptions</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Parameter</th><th>Value</th><th>Tag</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>S-01</td><td>Regulatory deadline</td><td>2025-01-17</td><td>SRC</td></tr>
+        <tr><td>S-04</td><td>Programme staff</td><td>300 FTE</td><td>SRC</td></tr>
+        <tr><td>S-08</td><td>Reference total spend</td><td>~EUR 100M</td><td>SRC</td></tr>
+        <tr><td>A-03</td><td>Daily rate (loaded)</td><td>EUR 250,000/day</td><td>ASM — calibrated to ICT-03 = EUR 45M at 180 days</td></tr>
+        <tr><td>A-09</td><td>Baseline contract count</td><td>N = 500</td><td>ASM</td></tr>
+        <tr><td>A-10</td><td>Duration slip dist.</td><td>Triangular(0.0, 0.50, 1.50) quarters</td><td>ASM — reflects RTS timing risk (A-11) and counterparty delays (A-12)</td></tr>
+        <tr><td>A-13</td><td>Cost calibration target</td><td>EUR 100M</td><td>= S-08</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <span>regplan 0.1.0</span>
+    <span>Generated 2026-11-01</span>
+    <span>Source: McKinsey "Europe's new resilience regime" (Boehm, Schneider et al., 2024)</span>
+    <span>Not a reproduction — calibration model only. See case study section 11.</span>
+  </footer>
+</div>
